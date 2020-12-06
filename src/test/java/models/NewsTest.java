@@ -17,7 +17,7 @@ public class NewsTest {
     }
 
     @Test
-    public void NewsInstantiatesCorrectly() throws Exception{
+    public void NewsInstantiatesCorrectlyTrue() throws Exception{
         News news = setNews();
         assertTrue(news instanceof News);
     }
@@ -38,7 +38,7 @@ public class NewsTest {
         News news = setNews();
         assertEquals("home",news.getNews_name());
         assertEquals("children",news.getNews_content());
-        assertEquals(1,news.getDpt_id());
+        assertEquals(2,news.getDept_id());
     }
 
     public News setNews() {
