@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="models.DepartmentsTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2020-12-06T19:34:53" hostname="wecode-VivoBook-15-ASUS-Laptop-X540UAR" time="0.003">
+<testsuite name="models.DepartmentsTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2020-12-06T19:48:03" hostname="wecode-VivoBook-15-ASUS-Laptop-X540UAR" time="0.004">
   <properties/>
   <testcase name="getEmployeesNumbers" classname="models.DepartmentsTest" time="0.002"/>
   <testcase name="setDepartmentsDescription" classname="models.DepartmentsTest" time="0.0"/>
-  <testcase name="setDepartmentName" classname="models.DepartmentsTest" time="0.001"/>
-  <testcase name="getDepartmentName" classname="models.DepartmentsTest" time="0.0"/>
+  <testcase name="setDepartmentName" classname="models.DepartmentsTest" time="0.0"/>
+  <testcase name="getDepartmentName" classname="models.DepartmentsTest" time="0.001"/>
   <testcase name="setEmployeesNumber" classname="models.DepartmentsTest" time="0.0"/>
   <testcase name="getDepartmentDescription" classname="models.DepartmentsTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
