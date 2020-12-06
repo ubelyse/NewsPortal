@@ -65,8 +65,8 @@ public class sql2oEmployeesTest {
 
         employeesDao.addEmpToDepartments(employees,departments);
         employeesDao.addEmpToDepartments(employees,department1);
-        Departments[] addedEmToDepartment = {departments,department1};
-        assertEquals(Arrays.asList(addedEmToDepartment),employeesDao.getAllDeptIntoToEmployees(employees.getId()));
+        Departments[] EmpToDepartment = {departments,department1};
+        assertEquals(Arrays.asList(EmpToDepartment),employeesDao.getAllDeptIntoToEmployees(employees.getId()));
     }
 
 
