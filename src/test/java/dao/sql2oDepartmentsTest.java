@@ -80,16 +80,16 @@ public class sql2oDepartmentsTest {
         employeesDao.add(employees);
 
         Departments departments = setDepartments();
-        departmentsDao.add(testDepartments);
+        departmentsDao.add(departments);
 
         Departments departments2 = setDepartments2();
         departmentsDao.add(departments2);
 
-        departmentsDao.addDeptToEmployees(departments,testEmployees);
-        departmentsDao.addDeptToEmployees(departments2,testEmployees);
+        departmentsDao.addDeptToEmployees(departments,employees);
+        departmentsDao.addDeptToEmployees(departments2,employees);
 
         departmentsDao.deleteById(departments.getId());
-        assertEquals(0, departmentsDao.getAllEmployeesBelongingToDepartment(departments.getId()).size());
+        assertEquals(0, departmentsDao.getAllEmployeesIntoDepartment(departments.getId()).size());
     }
 
     @Test
@@ -99,22 +99,22 @@ public class sql2oDepartmentsTest {
         Employees employees2 = new Employees("belyse", "assistant", "writing","secretary");
         employeesDao.add(employees2);
 
-        Departments departments = setupDepartments();
+        Departments departments = setDepartments();
         departmentsDao.add(departments);
         departmentsDao.addDeptToEmployees(departments,employees);
         departmentsDao.addDeptToEmployees(departments,employees2);
-        Employees[] addDptToEmployee = {employees,employees2};
-        assertEquals(Arrays.asList(addDptToEmployee),departmentsDao.getAllEmployeesBelongingToDepartment(departments.getId()));
+        Employees[] addDeptToEmployee = {employees,employees2};
+        assertEquals(Arrays.asList(addDeptToEmployee),departmentsDao.getAllEmployeesIntoDepartment(departments.getId()));
     }
     @Test
     public void clearAll() {
-        Departments departments = setupDepartments();
+        Departments departments = setDepartments();
         departmentsDao.add(departments);
         departmentsDao.clearAll();
         assertEquals(0,departmentsDao.getAllDepartments().size());
     }
 
-    public Departments setupDepartments(){
+    public Departments setDepartments(){
         return new Departments("hr", "recruiting", 20);
     }
     public Employees setEmployees(){

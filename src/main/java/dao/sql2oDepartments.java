@@ -41,7 +41,7 @@ public class sql2oDepartments implements DepartmentsDao {
 
     //M:M
     @Override
-    public void addDptToEmployees(Departments departments, Employees employees) {
+    public void addDeptToEmployees(Departments departments, Employees employees) {
         String sql = "INSERT INTO departments_employees(dpt_id, emp_id) VALUES (:dpt_id, :emp_id)";
         try(Connection conn = sql2o.open()){
             conn.createQuery(sql)
@@ -54,7 +54,7 @@ public class sql2oDepartments implements DepartmentsDao {
     }
 
     @Override
-    public List<Employees> getAllEmployeesBelongingToDepartment(int dpt_id) {
+    public List<Employees> getAllEmployeesIntoDepartment(int dpt_id) {
         ArrayList<Employees> allEmployees = new ArrayList<>();
         String joinQuery = "SELECT emp_id FROM departments_employees WHERE dpt_id =:dpt_id";
         try(Connection conn = sql2o.open()){
