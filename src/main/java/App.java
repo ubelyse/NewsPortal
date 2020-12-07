@@ -172,6 +172,7 @@ public class App {
             res.status(err.getStatusCode()); //set the status
             res.body(gson.toJson(jsonMap));  //set the output.
         });
+
         //FILTERS
         after((req, res) ->{
             res.type("application/json");
