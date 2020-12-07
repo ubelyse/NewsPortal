@@ -21,5 +21,5 @@ public interface NewsDao {
 
     //delete
 
-    void clearAll();
+    void clearAllNews();
 }

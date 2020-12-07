@@ -21,5 +21,5 @@ public interface UsersDao {
 
     //delete
 
-    void clearAll();
+    void clearAllUsers();
 }

@@ -76,7 +76,7 @@ public class sql2oUsers implements UsersDao {
 
 
     @Override
-    public void clearAll() {
+    public void clearAllUsers() {
 
         try (Connection con=sql2o.open()){
             String sql ="DELETE FROM staff ";

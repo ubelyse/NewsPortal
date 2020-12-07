@@ -1,5 +1,8 @@
 package dao;
 
+import models.Department_news;
+import models.News;
+import models.Users;
 import org.junit.After;
 import org.sql2o.Sql2o;
 import org.junit.*;
@@ -11,113 +14,117 @@ import java.util.Arrays;
 import static org.junit.Assert.*;
 
 public class sql2oDepartmentsTest {
+    private static sql2oDepartments sql2oDepartmentsDao;
+    private static sql2oUsers sql2oUsersDao;
+    private static sql2oNews sql2oNewsDao;
     private static Connection conn;
-    private  static sql2oDepartments departmentsDao;
-    private static sql2oEmployees employeesDao;
-    private static sql2oNews newsDao;
 
-    @BeforeClass
-    public static void setUp() throws Exception {
+    @Before
+    public void setUp() throws Exception {
+        //uncomment the two lines below to run locally and change to your  credentials
         String connectionString = "jdbc:postgresql://localhost:5432/newsportal_test";
         Sql2o sql2o = new Sql2o(connectionString, "belyse", "belyse");
-        employeesDao = new sql2oEmployees(sql2o);
-        departmentsDao = new sql2oDepartments(sql2o);
 
-        conn = sql2o.open();
+        sql2oDepartmentsDao=new sql2oDepartments(sql2o);
+        sql2oUsersDao=new sql2oUsers(sql2o);
+        sql2oNewsDao=new sql2oNews(sql2o);
+        System.out.println("connected to database");
+        conn=sql2o.open();
+
     }
 
     @After
     public void tearDown() throws Exception {
-        System.out.println("database clear");
-        employeesDao.clearAll();
-        departmentsDao.clearAll();
-
+        sql2oDepartmentsDao.clearAllDept();
+        sql2oUsersDao.clearAllUsers();
+        sql2oNewsDao.clearAllNews();
+        System.out.println("clearing database");
     }
-    //run once after all tests in this file completed
     @AfterClass
-    public static void shutDown() throws Exception{ //changed to static
+    public static void shutDown() throws Exception{
         conn.close();
         System.out.println("connection closed");
     }
 
     @Test
-    public void addDepartments() throws Exception {
-        Departments departments = setDepartments();
-        assertEquals(0, departments.getId());
+    public void AddedDepartment() {
+        Departments department=setDepartment();
+        int originalId=department.getId();
+        sql2oDepartmentsDao.addDept(department);
+        assertNotEquals(originalId,department.getId());
+    }
+
+
+
+    @Test
+    public void addUserIntoDept() {
+        Departments department=setDepartment();
+        sql2oDepartmentsDao.addDept(department);
+        Users user=setUser();
+        Users otherUser= new Users("belyse","developer","Coding");
+        sql2oUsersDao.add(user);
+        sql2oUsersDao.add(otherUser);
+        sql2oDepartmentsDao.addUserIntoDept(user,department);
+        sql2oDepartmentsDao.addUserIntoDept(otherUser,department);
+        assertEquals(2,sql2oDepartmentsDao.getAllUsersInDepartment(department.getId()).size());
+        assertEquals(2,sql2oDepartmentsDao.findById(department.getId()).getSize());
     }
 
     @Test
-    public void getAll() throws Exception {
-        Departments departments = setDepartments();
-        departmentsDao.add(departments);
-        Departments department2 = setDepartments();
-        departmentsDao.add(department2);
-        assertTrue(departmentsDao.getAllDepartments().contains(departments));
-        assertTrue(departmentsDao.getAllDepartments().contains(department2));
+    public void getAllDept() {
+        Departments department=setDepartment();
+        Departments otherDepartment=new Departments("hr","recruiting");
+        sql2oDepartmentsDao.addDept(department);
+        sql2oDepartmentsDao.addDept(otherDepartment);
+        assertEquals(department,sql2oDepartmentsDao.getAllDept().get(0));
+        assertEquals(otherDepartment,sql2oDepartmentsDao.getAllDept().get(1));
     }
 
     @Test
-    public void findById() {
-        Departments departments = setDepartments();
-        departmentsDao.add(departments);
-        Departments department2 = departmentsDao.findById(departments.getId());
-        assertEquals(departments,department2);
+    public void DepartmentFindById() {
+        Departments department=setDepartment();
+        Departments otherDepartment=new Departments("hr","recruiting");
+        sql2oDepartmentsDao.addDept(department);
+        sql2oDepartmentsDao.addDept(otherDepartment);
+        assertEquals(department,sql2oDepartmentsDao.findById(department.getId()));
+        assertEquals(otherDepartment,sql2oDepartmentsDao.findById(otherDepartment.getId()));
+
     }
 
     @Test
-    public void addDepartment() {
-        Departments departments = setDepartments();
-        departmentsDao.add(departments);
-        int departId = departments.getId();
-        assertEquals(departId,departments.getId());
-    }
-
-    @Test
-    public void deletingDepartmentsAlsoUpdatesJoinTable() throws Exception {
-        Employees employees = setEmployees();
-        employeesDao.add(employees);
-
-        Departments departments = setDepartments();
-        departmentsDao.add(departments);
-
-        Departments departments2 = setDepartments2();
-        departmentsDao.add(departments2);
-
-        departmentsDao.addDeptToEmployees(departments,employees);
-        departmentsDao.addDeptToEmployees(departments2,employees);
-
-        departmentsDao.deleteById(departments.getId());
-        assertEquals(0, departmentsDao.getAllEmployeesIntoDepartment(departments.getId()).size());
-    }
-
-    @Test
-    public void  addDptToEmployees() {
-        Employees employees = new Employees("belyse", "assistant", "writing","secretary");
-        employeesDao.add(employees);
-        Employees employees2 = new Employees("belyse", "assistant", "writing","secretary");
-        employeesDao.add(employees2);
-
-        Departments departments = setDepartments();
-        departmentsDao.add(departments);
-        departmentsDao.addDeptToEmployees(departments,employees);
-        departmentsDao.addDeptToEmployees(departments,employees2);
-        Employees[] addDeptToEmployee = {employees,employees2};
-        assertEquals(Arrays.asList(addDeptToEmployee),departmentsDao.getAllEmployeesIntoDepartment(departments.getId()));
+    public void getAllUsersIntoDepartment() {
+        Departments department=setDepartment();
+        sql2oDepartmentsDao.addDept(department);
+        Users user=setUser();
+        Users otherUser= new Users("belyse","developer","coding");
+        sql2oUsersDao.add(user);
+        sql2oUsersDao.add(otherUser);
+        sql2oDepartmentsDao.addUserIntoDept(user,department);
+        sql2oDepartmentsDao.addUserIntoDept(otherUser,department);
+        assertEquals(2,sql2oDepartmentsDao.getAllUsersInDepartment(department.getId()).size());
+        assertEquals(2,sql2oDepartmentsDao.findById(department.getId()).getSize());
     }
     @Test
-    public void clearAll() {
-        Departments departments = setDepartments();
-        departmentsDao.add(departments);
-        departmentsDao.clearAll();
-        assertEquals(0,departmentsDao.getAllDepartments().size());
+    public void getDepartmentNews() {
+        Users users=setUser();
+        sql2oUsersDao.add(users);
+        Departments departments=setDepartment();
+        sql2oDepartmentsDao.addDept(departments);
+        Department_news department_news =new Department_news("hr","recruiting",departments.getId()
+                ,users.getId());
+        sql2oNewsDao.addDepartmentNews(department_news);
+        News news=new News("sales","Marketing",users.getId());
+        sql2oNewsDao.addNews(news);
+
+        assertEquals(department_news.getTitle(),sql2oDepartmentsDao.getDepartmentNews(department_news.getId()).get(0).getTitle());
     }
 
-    public Departments setDepartments(){
-        return new Departments("hr", "recruiting", 20);
+    //helper
+    private Departments setDepartment() {
+        return new Departments("Editing","editing of newspaper");
     }
-    public Employees setEmployees(){
-        return new Employees("belyse", "assistant", "writing","secretary");
+    private Users setUser() {
+        return new Users("Ruth Mwangi","manager","Editor");
     }
-    public Departments setDepartments2(){ return new Departments("buy", "cook", 10);}
 
 }
