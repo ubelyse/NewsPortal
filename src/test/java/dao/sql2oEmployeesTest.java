@@ -32,10 +32,10 @@ public class sql2oEmployeesTest {
 
     @Test
     public void addAndSetId() {
-        Employees employees = setEmployees();
-        employeesDao.add(employees);
-        int empId= employees.getId();
-        assertEquals(employees.getId(),empId);
+        Employees testEmployee = setEmployees();
+        employeesDao.add(testEmployee);
+        int empId= testEmployee.getId();
+        assertEquals(testEmployee.getId(),empId);
     }
     @Test
     public void getAllEmployees(){
@@ -58,28 +58,28 @@ public class sql2oEmployeesTest {
         Employees employees = setEmployees();
         employeesDao.add(employees);
 
-        Departments departments = setDepartments();
-        departmentsDao.add(departments);
+        Departments testDepartments = setDepartments();
+        departmentsDao.add(testDepartments);
         Departments department1 = setDepartments2();
         departmentsDao.add(department1);
 
-        employeesDao.addEmpToDepartments(employees,departments);
+        employeesDao.addEmpToDepartments(employees,testDepartments);
         employeesDao.addEmpToDepartments(employees,department1);
-        Departments[] EmpToDepartment = {departments,department1};
-        assertEquals(Arrays.asList(EmpToDepartment),employeesDao.getAllDeptIntoToEmployees(employees.getId()));
+        Departments[] addedEmToDepartment = {testDepartments,department1};
+        assertEquals(Arrays.asList(addedEmToDepartment),employeesDao.getAllDeptIntoToEmployees(employees.getId()));
     }
 
 
     @Test
     public void findById() {
-        Employees employees = setEmployees();
-        employeesDao.add(employees);
-        Employees employee2 = employeesDao.findById(employees.getId());
-        assertEquals(employee2,employees);
+        Employees testEmployee = setEmployees();
+        employeesDao.add(testEmployee);
+        Employees employee2 = employeesDao.findById(testEmployee.getId());
+        assertEquals(employee2,testEmployee);
     }
     public Employees setEmployees(){
-        return new Employees("belyse", "assistant", "writing","secretary");
+        return new Employees("belyse", "new", "not","hr");
     }
-    public Departments setDepartments(){ return new Departments("hr", "recruiting", 20);}
-    public Departments setDepartments2(){ return new Departments("buy", "cook", 10);}
+    public Departments setDepartments(){ return new Departments("customer service", "sale", 60);}
+    public Departments setDepartments2(){ return new Departments("home", "cook", 10);}
 }

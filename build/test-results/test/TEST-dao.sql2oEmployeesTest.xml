@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="dao.sql2oEmployeesTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2020-12-06T21:10:45" hostname="wecode-VivoBook-15-ASUS-Laptop-X540UAR" time="0.404">
+<testsuite name="dao.sql2oEmployeesTest" tests="5" skipped="0" failures="1" errors="0" timestamp="2020-12-07T06:05:15" hostname="wecode-VivoBook-15-ASUS-Laptop-X540UAR" time="0.683">
   <properties/>
-  <testcase name="addEmployeeToDepartment" classname="dao.sql2oEmployeesTest" time="0.404">
-    <failure message="java.lang.AssertionError: expected:&lt;[models.Departments@a876ef87, models.Departments@5d30c1b9]&gt; but was:&lt;[]&gt;" type="java.lang.AssertionError">java.lang.AssertionError: expected:&lt;[models.Departments@a876ef87, models.Departments@5d30c1b9]&gt; but was:&lt;[]&gt;
+  <testcase name="addAndSetId" classname="dao.sql2oEmployeesTest" time="0.276"/>
+  <testcase name="findById" classname="dao.sql2oEmployeesTest" time="0.082"/>
+  <testcase name="addEmployeeToDepartment" classname="dao.sql2oEmployeesTest" time="0.156">
+    <failure message="java.lang.AssertionError: expected:&lt;[models.Departments@79f28bf9, models.Departments@f06e00c0]&gt; but was:&lt;[]&gt;" type="java.lang.AssertionError">java.lang.AssertionError: expected:&lt;[models.Departments@79f28bf9, models.Departments@f06e00c0]&gt; but was:&lt;[]&gt;
 	at org.junit.Assert.fail(Assert.java:88)
 	at org.junit.Assert.failNotEquals(Assert.java:834)
 	at org.junit.Assert.assertEquals(Assert.java:118)
@@ -59,6 +61,8 @@
 	at java.base/java.lang.Thread.run(Thread.java:834)
 </failure>
   </testcase>
+  <testcase name="clearAll" classname="dao.sql2oEmployeesTest" time="0.082"/>
+  <testcase name="getAllEmployees" classname="dao.sql2oEmployeesTest" time="0.085"/>
   <system-out><![CDATA[org.sql2o.Sql2oException: Error in executeUpdate, No value specified for parameter 1.
 org.sql2o.Sql2oException: Error in executeUpdate, No value specified for parameter 1.
 org.sql2o.Sql2oException: Could not map dpt_name to any property.
