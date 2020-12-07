@@ -4,7 +4,6 @@ import models.News;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import models.Departments;
-import models.Employees;
 import org.sql2o.Sql2oException;
 
 import java.util.ArrayList;

@@ -1,6 +1,5 @@
 package dao;
 
-import models.Employees;
 import models.Departments;
 import org.junit.Test;
 import org.sql2o.Connection;

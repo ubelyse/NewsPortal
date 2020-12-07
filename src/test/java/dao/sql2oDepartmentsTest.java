@@ -1,12 +1,10 @@
 package dao;
 
 import org.junit.After;
-import org.junit.Before;
 import org.sql2o.Sql2o;
 import org.junit.*;
 import org.sql2o.Connection;
 import models.Departments;
-import models.Employees;
 
 import java.util.Arrays;
 
