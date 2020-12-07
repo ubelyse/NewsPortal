@@ -77,6 +77,7 @@ public class sql2oEmployeesTest {
         Employees employee2 = employeesDao.findById(testEmployee.getId());
         assertEquals(employee2,testEmployee);
     }
+
     public Employees setEmployees(){
         return new Employees("belyse", "new", "not","hr");
     }
