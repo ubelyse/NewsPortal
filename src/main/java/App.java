@@ -93,6 +93,7 @@ public class App {
             response.status(201);
             return gson.toJson(employees);
         });
+
         //access all employees
         get("/employees", "application/json", (request, response) -> gson.toJson(employeesDao.getAllEmployees()));
         //Assign a department to an employee
