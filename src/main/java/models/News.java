@@ -1,47 +1,77 @@
 package models;
+import java.util.Objects;
 
 public class News {
 
     private int id;
-    private String news_content;
-    private int dept_id;
-    private String news_name;
+    private String news_type;
+    private int department_id;
+    private int user_id;
+    private String title;
+    private String description;
+    private final String TYPE_OF_NEWS="Normal";
 
-    public News(int dept_id,String news_name,String news_content) {
-        this.news_content = news_content;
-        this.dept_id = dept_id;
-        this.news_name = news_name;
+
+
+    public News(String title, String description, int user_id) {
+        this.title = title;
+        this.description = description;
+        this.user_id=user_id;
+        this.news_type=TYPE_OF_NEWS;
+        this.department_id=0;
+    }
+    public News(String title, String description,int department_id, int user_id){
+        this.title = title;
+        this.description = description;
+        this.user_id=user_id;
+        this.department_id = department_id;
+        this.news_type="department";
     }
 
-    public int getNews_id() {
+    public int getId() {
         return id;
     }
 
-    public void setNews_id(int news_id) {
-        this.id = news_id;
+    public int getUid() {
+        return user_id;
     }
 
-    public String getNews_content() {
-        return news_content;
+    public String getNews_type() {
+        return news_type;
     }
 
-    public void setNews_content(String news_content) {
-        this.news_content = news_content;
+    public int getDeptid() {
+        return department_id;
     }
 
-    public int getDept_id() {
-        return dept_id;
+    public String getTitle() {
+        return title;
     }
 
-    public void setDept_id(int dept_id) {
-        this.dept_id = dept_id;
+    public String getDescription() {
+        return description;
     }
 
-    public String getNews_name() {
-        return news_name;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setNews_name(String news_name) {
-        this.news_name = news_name;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        News news = (News) o;
+        return id == news.id &&
+                department_id == news.department_id &&
+                user_id == news.user_id &&
+                Objects.equals(news_type, news.news_type) &&
+                Objects.equals(title, news.title) &&
+                Objects.equals(description, news.description) &&
+                Objects.equals(TYPE_OF_NEWS, news.TYPE_OF_NEWS);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, news_type, department_id, user_id, title, description, TYPE_OF_NEWS);
     }
 }
