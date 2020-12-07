@@ -74,17 +74,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 
 ## Contact information
- - For queries ,comments compliments etc ,feel free to reach out to OmoshtheGeek on the following platforms
-    #### Twitter :
-    * ###### @elvizoh
-
-    #### Facebook :
-    * ###### @Elvin Omoxh
-
-    #### Telegram :
-    * ###### @omoshthegeek
-
-## Support or contribution instructions
-Feel like donating to the cause??? You can send us contributions on the platforms below :
- #### Paypal :
-* ###### @ omoshthegeek@gmail.com
+ - For queries ,comments compliments etc ,feel free to reach out to Belyse on the following platforms
+  
+    #### Instagram :
+    * ###### @belyse_paonne
+    
+    #### Email:
+    * ###### ubelyse1@gmail.com
