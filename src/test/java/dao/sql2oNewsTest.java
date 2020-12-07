@@ -17,8 +17,8 @@ import org.sql2o.Sql2o;
 public class sql2oNewsTest {
 
     private static sql2oDepartments sql2oDepartments;
-    private static sql2oUsers sql2oUsersDao;
-    private static sql2oNews sql2oNewsDao;
+    private static sql2oUsers sql2oUsers;
+    private static sql2oNews sql2oNews;
     private static Connection conn;
 
     @Before
@@ -29,8 +29,8 @@ public class sql2oNewsTest {
 
 
         sql2oDepartments=new sql2oDepartments(sql2o);
-        sql2oUsersDao=new sql2oUsers(sql2o);
-        sql2oNewsDao=new sql2oNews(sql2o);
+        sql2oUsers=new sql2oUsers(sql2o);
+        sql2oNews=new sql2oNews(sql2o);
         System.out.println("connected");
         conn=sql2o.open();
 
@@ -39,8 +39,8 @@ public class sql2oNewsTest {
     @After
     public void tearDown() throws Exception {
         sql2oDepartments.clearAllDept();
-        sql2oUsersDao.clearAllUsers();
-        sql2oNewsDao.clearAllNews();
+        sql2oUsers.clearAllUsers();
+        sql2oNews.clearAllNews();
         System.out.println("clearing");
     }
 
@@ -53,14 +53,14 @@ public class sql2oNewsTest {
     @Test
     public void addNews() {
         Users users=setUsers();
-        sql2oUsersDao.add(users);
+        sql2oUsers.add(users);
         Departments departments=setDepartment();
         sql2oDepartments.addDept(departments);
         News news=new News("payments","paying salary",users.getId());
-        sql2oNewsDao.addNews(news);
+        sql2oNews.addNews(news);
 
-        assertEquals(users.getId(),sql2oNewsDao.findById(news.getId()).getUid());
-        assertEquals(news.getDeptid(),sql2oNewsDao.findById(news.getId()).getDeptid());
+        assertEquals(users.getId(),sql2oNews.findById(news.getId()).getUid());
+        assertEquals(news.getDeptid(),sql2oNews.findById(news.getId()).getDeptid());
     }
 
 
@@ -69,32 +69,29 @@ public class sql2oNewsTest {
     @Test
     public void addDepartmentNews() {
         Users users=setUsers();
-        sql2oUsersDao.add(users);
+        sql2oUsers.add(users);
         Departments departments=setDepartment();
         sql2oDepartments.addDept(departments);
         Department_news department_news =new Department_news("payments","paying salary",departments.getId()
                 ,users.getId());
-        sql2oNewsDao.addDepartmentNews(department_news);
-        assertEquals(users.getId(),sql2oNewsDao.findById(department_news.getId()).getUid());
-        assertEquals(department_news.getDeptid(),sql2oNewsDao.findById(department_news.getId()).getDeptid());
+        sql2oNews.addDepartmentNews(department_news);
+        assertEquals(users.getId(),sql2oNews.findById(department_news.getId()).getUid());
+        assertEquals(department_news.getDeptid(),sql2oNews.findById(department_news.getId()).getDeptid());
 
     }
-
-
-
 
     @Test
     public void getAll() {
         Users users=setUsers();
-        sql2oUsersDao.add(users);
+        sql2oUsers.add(users);
         Departments departments=setDepartment();
         sql2oDepartments.addDept(departments);
         Department_news department_news =new Department_news("payments","paying salary",departments.getId()
                 ,users.getId());
-        sql2oNewsDao.addDepartmentNews(department_news);
+        sql2oNews.addDepartmentNews(department_news);
         News news=new News("payments","paying salary",users.getId());
-        sql2oNewsDao.addNews(news);
-        assertEquals(2,sql2oNewsDao.getAll().size());
+        sql2oNews.addNews(news);
+        assertEquals(2,sql2oNews.getAll().size());
     }
 
 
@@ -103,10 +100,7 @@ public class sql2oNewsTest {
     public void findById() {
     }
 
-    //helper
-//    private News setUpNewNews() {
-//        return new News("Meeting","Meeting to set activities for team building");
-//    }
+
     private Departments setDepartment() {
         return new Departments("sale","marketing");
     }
