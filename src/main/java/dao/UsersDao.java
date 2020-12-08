@@ -8,7 +8,6 @@ import java.util.List;
 public interface UsersDao {
 
     //create
-
     void  add(Users user);
 
     //read

@@ -4,13 +4,15 @@ import models.Departments;
 import models.Users;
 
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 
-import static org.junit.Assert.*;
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 public class sql2oUsersTest {
 
@@ -21,7 +23,6 @@ public class sql2oUsersTest {
     @Before
     public void setUp() throws Exception {
 
-        //uncomment the two lines below to run locally and change to your  credentials
         String connectionString = "jdbc:postgresql://localhost:5432/newsportal_test";
         Sql2o sql2o = new Sql2o(connectionString, "belyse", "belyse");
 
@@ -34,16 +35,8 @@ public class sql2oUsersTest {
 
     @After
     public void tearDown() throws Exception {
-        sql2oDepartments.clearAllDept();
-        sql2oUsers.clearAllUsers();
-        System.out.println("clearing");
-    }
-    @AfterClass
-    public static void shutDown() throws Exception{
         conn.close();
-        System.out.println("connection closed");
     }
-
 
     @Test
     public void addingUser() {
@@ -68,7 +61,7 @@ public class sql2oUsersTest {
         sql2oUsers.add(users);
         sql2oUsers.add(otherUser);
         assertEquals(users.getName(),sql2oUsers.getAll().get(0).getName());
-        assertEquals(otherUser.getName(),sql2oUsers.getAll().get(1).getName());
+       assertEquals(otherUser.getName(),sql2oUsers.getAll().get(1).getName());
     }
     @Test
     public void getDepartmentsUserIsIn() {
