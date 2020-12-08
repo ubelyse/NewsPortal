@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{#block "title"}}News_portal{{/block}}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<ul style="background-color:black;" class="nav justify-content-center">
+    <li class="nav-item">
+        <a id="nav" class="nav-link" href="/">NEWS</a>
+    </li>
+    <li class="nav-item">
+        <a id="nav" class="nav-link" href="/allDepts">DEPARTMENTS</a>
+    </li>
+    <li class="nav-item">
+        <a id="nav" class="nav-link" href="/allUsers">USERS</a>
+    </li>
+</ul>
+<div class="container">
+    <!--begin main template-->
+    <div class="page-header">
+        <h1 id="h1" style="text-align:center; color:black;">NEWS_PORTAL</h1>
+    </div>
+
+    <div class="col-md-12">
+        {{#block "content"}}
+        {{/block}}
+    </div>
+</div>
+<!--end main template-->
+
+{{#block "footer"}}
+    <style>
+            #nav{
+                color:white;
+            }
+            #nav:hover{
+                background-color:white;
+                color:black;
+            }
+            #h1{
+                border-top: 1px solid black;
+                border-bottom: 1px solid black;
+                padding:2%;
+                margin:3%;
+            }
+        </style>
+    </body>
+    </html>
+{{/block}}

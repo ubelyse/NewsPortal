@@ -3,13 +3,14 @@ import dao.sql2oDepartments;
 import dao.sql2oNews;
 import dao.sql2oUsers;
 import Exceptions.ApiExceptions;
+import spark.ModelAndView;
 
 import models.Departments;
 import models.News;
 import models.Users;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
-
+import spark.template.handlebars.HandlebarsTemplateEngine;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,12 +30,14 @@ public class App {
     }
     public static void main(String[] args) {
 
-        port(getHerokuAssignedPort());
+
         sql2oNews sql2oNewsDao;
         sql2oUsers sql2oUsersDao;
         sql2oDepartments sql2oDepartmentsDao;
         Connection conn;
         Gson gson = new Gson();
+
+        port(getHerokuAssignedPort());
         staticFileLocation("/public");
 
         String connectionString = "jdbc:postgresql://localhost:5432/newsportal";
@@ -44,6 +47,18 @@ public class App {
         sql2oNewsDao=new sql2oNews(sql2o);
         sql2oUsersDao=new sql2oUsers(sql2o);
         conn=sql2o.open();
+
+        staticFileLocation("/public");
+
+        get("/", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<Departments> allDepartments = sql2oDepartmentsDao.getAllDept();
+            model.put("departments", allDepartments);
+            List<News> tasks = sql2oNewsDao.getAll();
+            model.put("news", tasks);
+            return new ModelAndView(model, "index.hbs");
+        }, new HandlebarsTemplateEngine());
+
 
         //read users,news,departments
         get("/users", "application/json", (request, response) -> {
@@ -210,7 +225,6 @@ public class App {
         after((request, response) ->{
             response.type("application/json");
         });
-
 
     }
 }

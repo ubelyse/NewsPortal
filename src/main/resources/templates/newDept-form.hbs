@@ -1,0 +1,28 @@
+{{#partial "content"}}
+    <h3>Add Department!</h3>
+    <form action="/dept/new" method="post">
+        <div class="form-group">
+            <label for="name">Department name:</label><br>
+            <input class="form-control" id="name" name="name" type="text"><br>
+        </div>
+        <div class="form-group">
+            <label for="description"> Description:</label><br>
+            <textarea class="form-control" id="description" name="description" type="text" rows="3"></textarea><br>
+        </div>
+        <div class="form-group">
+            <label for="size">Employee number:</label><br>
+            <input class="form-control" id="size" name="size" type="number"><br>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-light">ADD</button>
+        </div>
+    </form>
+{{/partial}}
+<style>
+    body{
+        background-image: url("http://www.wns.com/Portals/0/Images/HeaderBanner/desktop/619/101/Insights-Tag-Search_HD.jpg");
+        background-repeat: no-repeat;
+        background-size:cover;
+    }
+</style>
+{{> layout.hbs}}
